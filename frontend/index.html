@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Analytics Desk — India COVID-19 Trends</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header>
+  <h1>Data Analytics Desk</h1>
+  <p>Daily COVID-19 trends for India and four comparison countries, from a real public dataset (Johns Hopkins, via the <code>datasets/covid-19</code> repository). Collect, clean, analyse, report.</p>
+  <p id="coverage">Loading…</p>
+</header>
+
+<section id="kpis" aria-label="Key figures"></section>
+
+<section>
+  <h2>Daily new cases — trend</h2>
+  <label>Country
+    <select id="country"></select>
+  </label>
+  <svg id="chart" viewBox="0 0 800 260" role="img" aria-label="Daily new cases chart"></svg>
+  <p class="note">Line: daily new cases. Dashed line: 7-day rolling average. Chart shows the last 180 days.</p>
+</section>
+
+<section>
+  <h2>Top countries by cumulative confirmed cases</h2>
+  <table id="top"><thead><tr><th>Country</th><th>Confirmed</th><th>Deaths</th><th>As of</th></tr></thead><tbody></tbody></table>
+</section>
+
+<section>
+  <h2>Anomaly scan — spike days</h2>
+  <p class="note">A day is flagged when new cases exceed 3× the prior 14-day median and are at least 500.</p>
+  <table id="anomalies"><thead><tr><th>Date</th><th>Country</th><th>New cases</th><th>14-day median</th><th>Ratio</th></tr></thead><tbody></tbody></table>
+</section>
+
+<section>
+  <h2>Stakeholder report</h2>
+  <pre id="report">Loading…</pre>
+</section>
+
+<section>
+  <h2>Upload a CSV</h2>
+  <p class="note">Columns required: Date, Country, Confirmed, Recovered, Deaths. Rows are validated and cleaned with the same rules as the seed ingest, then upserted for their (country, date).</p>
+  <form id="upload">
+    <input type="file" name="file" accept=".csv" required>
+    <button type="submit">Upload and load</button>
+  </form>
+  <p id="upload-result"></p>
+</section>
+
+<footer>
+  <p>Built with Python, FastAPI, SQL (SQLite locally, PostgreSQL-ready), pandas. Source and tests: see README.</p>
+</footer>
+<script src="/app.js"></script>
+</body>
+</html>
